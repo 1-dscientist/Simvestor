@@ -1,0 +1,2 @@
+# Simvestor
+Paper Trading App
