@@ -1,4 +1,3 @@
-
 public class Main {
 
 	public Main() {
@@ -7,6 +6,6 @@ public class Main {
 	
 	public static void main(String[] args) 
 	{
-		System.out.println("Money");
+		System.out.println("The Simvestors!");
 	}
 }
