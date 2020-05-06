@@ -12,7 +12,7 @@ public class Stocks {
 	private static String baseLinkPrice = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=|TICKER|&interval=5min&apikey=|APIKEY|";
 	private static String baseLinkSearch = "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=|SEARCH|&apikey=|APIKEY|";
 	
-	private static DecimalFormat round = new DecimalFormat("0.00");
+	private static final DecimalFormat ROUND = new DecimalFormat("0.00");
 	
 	// Constructor
 	public Stocks() {
@@ -36,8 +36,18 @@ public class Stocks {
 	
 	public static String getDisplayPrice(String ticker)
 	{
-		String formattedPrice = String.valueOf(round.format(getPrice(ticker)));
+		String formattedPrice = String.valueOf(ROUND.format(getPrice(ticker)));
 		return "$" + formattedPrice;
+	}
+	
+	// TODO
+	public static String getCompanyName(String ticker) {
+		return null;
+	}
+	
+	// TODO
+	public String getLastRefreshed(String ticker) {
+		return null;
 	}
 	
 	public static String[] searchMatches(String search) {
