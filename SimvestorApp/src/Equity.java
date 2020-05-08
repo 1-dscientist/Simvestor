@@ -34,7 +34,7 @@ public class Equity extends Stocks{
 		return buyPrice;
 	}
 	
-	private double getCurrentPriceOfStock()
+	public double getCurrentPriceOfStock()
 	{
 		return super.getPrice(ticker);
 	}
@@ -61,3 +61,5 @@ public class Equity extends Stocks{
 	
 	
 }
+
+// Add a to string method
