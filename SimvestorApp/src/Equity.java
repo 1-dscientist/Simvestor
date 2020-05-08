@@ -55,6 +55,11 @@ public class Equity extends Stocks{
 		return (double) getCurrentPriceOfStock() * quantity;
 	}
 	
+	public double getTotalProfit()
+	{
+		return getEquityValue()-(buyPrice*quantity);
+	}
+	
 	public double getPercentage()
 	{
 		return ((getCurrentPriceOfStock()/buyPrice)*100)-100;
@@ -65,6 +70,20 @@ public class Equity extends Stocks{
 		return String.valueOf(ROUND.format(getPercentage())) + "%";
 	}
 	
+	public String getDisplayDaysGain()
+	{
+		return super.getDisplayPercentChange(ticker);
+	}
+	
+	public String getDisplayDaysChange()
+	{
+		return super.getDisplayPriceChange(ticker);
+	}
+	
+	public String toString()
+	{
+		return "| "+ticker+" | "+quantity+" | $"+Double.valueOf(buyPrice)+" | $"+getDisplayPriceOfStock()+" | $"+Double.valueOf(getTotalProfit())+" | "+getDisplayPercentage() + " |";
+	}
 	
 }
 
