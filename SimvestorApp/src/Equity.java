@@ -12,6 +12,9 @@ public class Equity extends Stocks{
 	// Constructor
 	public Equity(String ticker, int quantity, double buyPrice) {
 		// TODO Auto-generated constructor stub
+		this.ticker = ticker;
+		this.quantity = quantity;
+		this.buyPrice = buyPrice;
 	}
 	
 	// Methods
@@ -48,7 +51,7 @@ public class Equity extends Stocks{
 	
 	public double getPercentage()
 	{
-		return (getCurrentPriceOfStock()/buyPrice)-1;
+		return ((getCurrentPriceOfStock()/buyPrice)*100)-100;
 	}
 	
 	public String getDisplayPercentage()
