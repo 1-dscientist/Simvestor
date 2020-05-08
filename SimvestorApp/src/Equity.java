@@ -34,6 +34,12 @@ public class Equity extends Stocks{
 		return buyPrice;
 	}
 	
+	public void addToEquity(int quantity, double buyPrice)
+	{
+		this.buyPrice = ((quantity*buyPrice)+(this.quantity*this.buyPrice))/(this.quantity+quantity);
+		this.quantity += quantity;
+	}
+	
 	public double getCurrentPriceOfStock()
 	{
 		return super.getPrice(ticker);

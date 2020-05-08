@@ -50,7 +50,7 @@ public class Stocks {
 		return null;
 	}
 	
-	public static String[] searchMatches(String search) {
+	public static String searchMatch(String search) {
 		String result = null;
 		String[] results = null;
 		try{  
@@ -67,6 +67,6 @@ public class Stocks {
 		catch(JauntException e){
 			System.err.println(e);
 		}
-		return results;
+		return results[0];
 	}
 }
