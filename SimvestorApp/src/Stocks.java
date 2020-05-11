@@ -8,10 +8,11 @@ public class Stocks {
 
 	// Fields
 	private static final String API_KEY = "E3OKBSQ3LTVGCVYE";
+	private static final String API_KEY_2 = "0M8I308CQIX4V57T";
 
 	private static String baseLinkPrice = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=|TICKER|&interval=5min&apikey=|APIKEY|";
 	private static String baseLinkSearch = "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=|SEARCH|&apikey=|APIKEY|";
-	private static String baseLinkDailyPrice = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=|TICKER|&apikey==|APIKEY|";
+	private static String baseLinkDailyPrice = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=|TICKER|&apikey=|APIKEY|";
 
 	private static final DecimalFormat ROUND = new DecimalFormat("0.00");
 
@@ -42,9 +43,25 @@ public class Stocks {
 	}
 
 	// TODO
-	public static String getCompanyName(String ticker) 
+	public static String getCompanyName(String search) 
 	{
-		return null;
+		String result = null;
+		String[] results = null;
+		try{  
+			UserAgent userAgent = new UserAgent();
+			userAgent.sendGET(baseLinkSearch.replace("|SEARCH|",search).replace("|APIKEY|",API_KEY)); 
+			JNode node = userAgent.json.findEach("2. name");
+			result = node.toString();
+			results = result.split(",");
+			for (int i = 0; i < results.length; i++)
+			{
+				results[i] = results[i].replace("[","").replace("\"","").replace("]","");
+			}
+		}
+		catch(JauntException e){
+			System.err.println(e);
+		}
+		return results[0];
 	}
 
 	public static double getYdayPrice(String ticker)
@@ -52,8 +69,8 @@ public class Stocks {
 		String result = null;
 		String[] results = null;
 		try{  
-			UserAgent userAgent = new UserAgent();         //create new userAgent (headless browser).
-			userAgent.sendGET(baseLinkDailyPrice.replace("|TICKER|",ticker).replace("|APIKEY|",API_KEY));   //send request
+			UserAgent userAgent = new UserAgent(); 
+			userAgent.sendGET(baseLinkDailyPrice.replace("|TICKER|",ticker).replace("|APIKEY|",API_KEY));
 			JNode node = userAgent.json.findEach("4. close");
 			result = node.toString();
 			results = result.split(",");
@@ -74,7 +91,8 @@ public class Stocks {
 
 	public static String getDisplayPercentChange(String ticker)
 	{
-		String formattedChange = String.valueOf(ROUND.format(getPercentChange(ticker)));
+		double change = ((getPrice(ticker)/getYdayPrice(ticker))-1)*100;
+		String formattedChange = String.valueOf(ROUND.format(change));
 		return formattedChange+"%";
 	}
 	
@@ -85,8 +103,9 @@ public class Stocks {
 	
 	public static String getDisplayPriceChange(String ticker)
 	{
-		String formattedPrice = String.valueOf(ROUND.format(getPriceChange(ticker)));
-		if (getPriceChange(ticker)>0)
+		double change = getPrice(ticker)-getYdayPrice(ticker);
+		String formattedPrice = String.valueOf(ROUND.format(change));
+		if (change>0)
 		{
 			return "+"+formattedPrice;
 		} else {
@@ -99,8 +118,8 @@ public class Stocks {
 		String result = null;
 		String[] results = null;
 		try{  
-			UserAgent userAgent = new UserAgent();         //create new userAgent (headless browser).
-			userAgent.sendGET(baseLinkSearch.replace("|SEARCH|",search).replace("|APIKEY|",API_KEY));   //send request
+			UserAgent userAgent = new UserAgent();
+			userAgent.sendGET(baseLinkSearch.replace("|SEARCH|",search).replace("|APIKEY|",API_KEY)); 
 			JNode node = userAgent.json.findEach("1. symbol");
 			result = node.toString();
 			results = result.split(",");
@@ -115,8 +134,12 @@ public class Stocks {
 		return results[0];
 	}
 
-//	public static void main(String[] args)
-//	{
-//		System.out.println(getDisplayPriceChange("IBM"));
-//	}
+	public static void main(String[] args)
+	{
+//		System.out.println(getCompanyName("AAPL"));
+//		System.out.println(searchMatch("apple"));
+//		System.out.println(getDisplayPriceChange("AAPL"));
+		System.out.println(getDisplayPercentChange("MSFT"));
+//		System.out.println(getPrice("AAPL"));
+	}
 }

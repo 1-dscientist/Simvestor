@@ -1,10 +1,15 @@
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.event.CaretEvent;
+import javax.swing.event.CaretListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.JTableHeader;
 
@@ -44,7 +49,7 @@ public class Simvestor extends JFrame{
 	};
 	private static JTextField txtTicker;
 	private static JTextField txtPrice;
-	private static JTextField txtIncrease;
+	private static JTextField txtChange;
 	private static JTextField txtGain;
 	private static JTextField txtName;
 	
@@ -53,33 +58,12 @@ public class Simvestor extends JFrame{
 		// Empty
 	}
 
+	@SuppressWarnings("unchecked")
 	private static void setup()
 	{
 		JFrame Simvestor = new JFrame("Simvestor");
 		Simvestor.setBounds(300, 300, 1600, 900);
 		Simvestor.getContentPane().setLayout(null);
-
-		txtSearch = new JTextField("Search");
-		txtSearch.setFont(new Font("Arial", Font.BOLD, 24));
-		txtSearch.addFocusListener(new FocusListener()
-		{
-			public void focusGained(FocusEvent e) {
-				if (txtSearch.getText().equals("Search")) {
-					txtSearch.setText("");
-					txtSearch.setForeground(Color.BLACK);
-				}
-			}
-			public void focusLost(FocusEvent e) {
-				if (txtSearch.getText().isEmpty()) {
-					txtSearch.setForeground(Color.GRAY);
-					txtSearch.setText("Search");
-				}
-			}
-		});
-		txtSearch.setBounds(1000, 50, 500, 50);
-		txtSearch.setColumns(10);
-		txtSearch.setVisible(true);
-		Simvestor.getContentPane().add(txtSearch);
 
 		btnReset = new JButton("RESET");
 		btnReset.setForeground(Color.BLACK);
@@ -217,44 +201,76 @@ public class Simvestor extends JFrame{
 		txtPrice.setEditable(false);
 		txtPrice.setHorizontalAlignment(SwingConstants.TRAILING);
 		txtPrice.setFont(new Font("Arial", Font.PLAIN, 48));
-		txtPrice.setText("$ZZZ.ZZ");
+		txtPrice.setText("");
 		txtPrice.setBounds(1250, 150, 250, 150);
 		Simvestor.getContentPane().add(txtPrice);
 		txtPrice.setColumns(10);
 		
 		txtTicker = new JTextField();
 		txtTicker.setEditable(false);
-		txtTicker.setText("ZZZ");
+		txtTicker.setText("");
 		txtTicker.setFont(new Font("Arial", Font.BOLD, 72));
 		txtTicker.setColumns(10);
 		txtTicker.setBounds(1000, 150, 250, 150);
 		Simvestor.getContentPane().add(txtTicker);
 		
-		txtIncrease = new JTextField();
-		txtIncrease.setHorizontalAlignment(SwingConstants.LEFT);
-		txtIncrease.setText("+Z.ZZ");
-		txtIncrease.setEditable(false);
-		txtIncrease.setFont(new Font("Arial", Font.PLAIN, 24));
-		txtIncrease.setBounds(1000, 300, 250, 50);
-		Simvestor.getContentPane().add(txtIncrease);
-		txtIncrease.setColumns(10);
-		
-		txtGain = new JTextField();
-		txtGain.setText("Z.ZZ%");
-		txtGain.setHorizontalAlignment(SwingConstants.TRAILING);
-		txtGain.setFont(new Font("Arial", Font.BOLD, 24));
-		txtGain.setEditable(false);
-		txtGain.setColumns(10);
-		txtGain.setBounds(1250, 300, 250, 50);
-		Simvestor.getContentPane().add(txtGain);
+//		txtChange = new JTextField();
+//		txtChange.setHorizontalAlignment(SwingConstants.LEFT);
+//		txtChange.setText("");
+//		txtChange.setEditable(false);
+//		txtChange.setFont(new Font("Arial", Font.PLAIN, 24));
+//		txtChange.setBounds(1000, 300, 250, 50);
+//		Simvestor.getContentPane().add(txtChange);
+//		txtChange.setColumns(10);
+//		
+//		txtGain = new JTextField();
+//		txtGain.setText("");
+//		txtGain.setHorizontalAlignment(SwingConstants.TRAILING);
+//		txtGain.setFont(new Font("Arial", Font.BOLD, 24));
+//		txtGain.setEditable(false);
+//		txtGain.setColumns(10);
+//		txtGain.setBounds(1250, 300, 250, 50);
+//		Simvestor.getContentPane().add(txtGain);
 		
 		txtName = new JTextField();
 		txtName.setFont(new Font("Arial", Font.BOLD, 24));
-		txtName.setText("Java inc.");
+		txtName.setText("");
 		txtName.setEditable(false);
-		txtName.setBounds(1000, 350, 500, 50);
+		txtName.setBounds(1000, 300, 500, 50);
 		Simvestor.getContentPane().add(txtName);
 		txtName.setColumns(10);
+		
+		txtSearch = new JTextField("Search");
+		txtSearch.setFont(new Font("Arial", Font.BOLD, 24));
+		txtSearch.addFocusListener(new FocusListener()
+		{
+			public void focusGained(FocusEvent e) {
+				if (txtSearch.getText().equals("Search")) {
+					txtSearch.setText("");
+					txtSearch.setForeground(Color.BLACK);
+				}
+			}
+			public void focusLost(FocusEvent e) {
+				if (txtSearch.getText().isEmpty()) {
+					txtSearch.setForeground(Color.GRAY);
+					txtSearch.setText("Search");
+				}
+			}
+		});
+		txtSearch.setBounds(1000, 50, 500, 50);
+		txtSearch.setColumns(10);
+		txtSearch.setVisible(true);
+		txtSearch.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					String search = txtSearch.getText();
+					String ticker = Stocks.searchMatch(search);
+					txtName.setText(Stocks.getCompanyName(search));
+					txtPrice.setText(Stocks.getDisplayPrice(ticker));
+					txtTicker.setText(ticker);
+//					txtChange.setText(Stocks.getDisplayPriceChange(ticker));
+//					txtGain.setText(Stocks.getDisplayPercentChange(ticker));
+				}});
+		Simvestor.getContentPane().add(txtSearch);
 
 		Simvestor.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Simvestor.setVisible(true);
