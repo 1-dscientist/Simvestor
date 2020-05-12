@@ -2,7 +2,7 @@ import java.util.Arrays;
 
 public class Portfolio {
 
-	private static Equity[] equities = {};
+	private static Equi[] equities = {};
 
 	private static double cash = 100000.00;
 
@@ -32,7 +32,7 @@ public class Portfolio {
 			equities[existsEquityIndex].addToEquity(quantity, buyPrice);
 			cash -= buyPrice*quantity;
 		} else {
-			equities[equities.length - 1] = new Equity(ticker, quantity, buyPrice);
+			equities[equities.length - 1] = new Equi(ticker, quantity, buyPrice);
 			cash -= buyPrice*quantity;
 		}
 	}

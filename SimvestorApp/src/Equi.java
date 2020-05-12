@@ -10,7 +10,7 @@ public class Equi extends Stocks{
 	private static final DecimalFormat ROUND = new DecimalFormat("0.00");
 
 	// Constructor
-	public Equity(String ticker, int quantity, double buyPrice) {
+	public Equi(String ticker, int quantity, double buyPrice) {
 		// TODO Auto-generated constructor stub
 		this.ticker = ticker;
 		this.quantity = quantity;
@@ -82,7 +82,7 @@ public class Equi extends Stocks{
 	
 	public String toString()
 	{
-		return "| "+ticker+" | "+quantity+" | $"+Double.valueOf(buyPrice)+" | $"+getDisplayPriceOfStock()+" | $"+Double.valueOf(getTotalProfit())+" | "+getDisplayPercentage() + " |";
+		return "| "+ticker+" | "+quantity+" | $"+Double.valueOf(buyPrice)+" | $"+getDisplayPrice()+" | $"+Double.valueOf(getTotalProfit())+" | "+getDisplayPercentage() + " |";
 	}
 	
 }

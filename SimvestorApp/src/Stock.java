@@ -5,9 +5,11 @@ public class Stock extends Stocks implements Equity, Transaction {
 	private String ticker;
 	private int quantity;
 	private double buyPrice;
+	private boolean active;
 	
 	private static final DecimalFormat ROUND = new DecimalFormat("0.00");
 	
+	public Stock(String ticker, int quantity, double buyPrice, boolean active)
 	@Override
 	public String getTicker() {
 		// TODO Auto-generated method stub
@@ -82,6 +84,12 @@ public class Stock extends Stocks implements Equity, Transaction {
 
 	@Override
 	public String toStringEquity() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String toStringTransaction() {
 		// TODO Auto-generated method stub
 		return null;
 	}
