@@ -11,7 +11,7 @@ public class Portfolio {
 
 	}
 
-	public static void addEquity(String ticker, int quantity, double buyPrice)
+	public void addEquity(String ticker, int quantity, double buyPrice)
 	{
 		equities = Arrays.copyOf(equities, equities.length + 1);
 		boolean exists = false;
@@ -37,12 +37,12 @@ public class Portfolio {
 		}
 	}
 
-	public static void removeEquity(String ticker, int quantity, double sellPrice)
+	public void removeEquity(String ticker, int quantity, double sellPrice)
 	{
 
 	}
 
-	public static int numberOfEquities()
+	public int numberOfEquities()
 	{
 		return equities.length;
 	}
@@ -71,8 +71,13 @@ public class Portfolio {
 	{
 		return "$"+Double.valueOf(getCash())+"0";
 	}
+	
+	public static String listAllEquities()
+	{
+		return null;
+	}
 
-//	public static void main(String[] args)
+//	public  void main(String[] args)
 //	{
 //		addEquity("AAPL",50,200.00);
 //		addEquity("AAPL",50,200.00);

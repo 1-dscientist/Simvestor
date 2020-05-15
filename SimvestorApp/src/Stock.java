@@ -8,6 +8,8 @@ public class Stock extends Stocks implements Equity, Transaction {
 	private double buyPrice;
 	private boolean active;
 	
+	private double currentPrice; 
+	
 	private static final DecimalFormat ROUND = new DecimalFormat("0.00");
 	// constructor
 	public Stock(String ticker, int quantity, double buyPrice, boolean active)
@@ -36,13 +38,14 @@ public class Stock extends Stocks implements Equity, Transaction {
 	@Override
 	public double getCurrentPrice()
 	{
-		return super.getPrice(ticker);
+		currentPrice = super.getPrice(ticker);
+		return currentPrice;
 	}
 	// gets display price
 	@Override
 	public String getDisplayPrice() {
-		// TODO Auto-generated method stub
-		return super.getDisplayPrice(ticker);
+		String displayPrice = super.getDisplayPrice(ticker);
+		return displayPrice;
 	}
 	// gets equity value
 	@Override
@@ -55,6 +58,11 @@ public class Stock extends Stocks implements Equity, Transaction {
 	public double getTotalProfit() {
 		// TODO Auto-generated method stub
 		return getEquityValue()-(buyPrice*quantity);
+	}
+	
+	public String getTotalDisplayProfit() {
+		// TODO Auto-generated method stub
+		return "$"+Double.toString(getEquityValue()-(buyPrice*quantity));
 	}
 	// gets gain
 	@Override
@@ -90,8 +98,7 @@ public class Stock extends Stocks implements Equity, Transaction {
 	// to string
 	@Override
 	public String toStringEquity() {
-		// TODO Auto-generated method stub
-		return null;
+		return "| " + ticker + " | " + Integer.toString(quantity) + " | " + Double.toString(buyPrice) + " | " + getDisplayPrice() + " | " + getTotalDisplayProfit() + " | " + getDisplayGain(); 
 	}
 	// transaction to string
 	@Override

@@ -52,7 +52,7 @@ public class Simvestor extends JFrame{
 	private static JTextField txtChange;
 	private static JTextField txtGain;
 	private static JTextField txtName;
-	
+	private static Trader trade;
 			
 	public Simvestor() {
 		// Empty
@@ -132,6 +132,13 @@ public class Simvestor extends JFrame{
 		btnBuy.setForeground(new Color(0, 0, 0));
 		btnBuy.setBounds(1000, 450, 250, 50);
 		btnBuy.setVisible(true);
+		btnBuy.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+			
+		});
 		Simvestor.getContentPane().add(btnBuy);
 
 		btnSell = new JButton("Sell");
