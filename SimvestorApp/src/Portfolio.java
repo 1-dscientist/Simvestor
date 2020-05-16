@@ -74,7 +74,12 @@ public class Portfolio {
 	
 	public static String listAllEquities()
 	{
-		return null;
+		String stringList = "";
+		for (int i=0; i< equities.length; i++)
+		{
+			stringList += equities[i].toStringEquity() + "\n";
+		}
+		return stringList;
 	}
 
 //	public  void main(String[] args)

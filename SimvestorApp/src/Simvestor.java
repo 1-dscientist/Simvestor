@@ -281,7 +281,7 @@ public class Simvestor extends JFrame{
 
 		Simvestor.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Simvestor.setVisible(true);
-		Simvestor.setResizable(false);
+		Simvestor.setResizable(true);
 		Simvestor.getContentPane().setLayout(null);
 	}
 
