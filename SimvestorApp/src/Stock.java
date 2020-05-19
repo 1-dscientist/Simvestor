@@ -14,7 +14,17 @@ public class Stock extends Stocks implements Equity, Transaction {
 	// constructor
 	public Stock(String ticker, int quantity, double buyPrice, boolean active)
 	{
-		
+		this.ticker = ticker;
+		this.quantity = quantity;
+		this.buyPrice = buyPrice;
+		this.active = active;
+	}
+	
+	public Stock(String ticker, int quantity, double buyPrice)
+	{
+		this.ticker = ticker;
+		this.quantity = quantity;
+		this.buyPrice = buyPrice;
 	}
 	@Override
 	// gets ticker
@@ -62,7 +72,7 @@ public class Stock extends Stocks implements Equity, Transaction {
 	
 	public String getTotalDisplayProfit() {
 		// TODO Auto-generated method stub
-		return "$"+Double.toString(getEquityValue()-(buyPrice*quantity));
+		return "$" + ROUND.format(getEquityValue()-(buyPrice*quantity));
 	}
 	// gets gain
 	@Override
@@ -74,7 +84,7 @@ public class Stock extends Stocks implements Equity, Transaction {
 	@Override
 	public String getDisplayGain() {
 		// TODO Auto-generated method stub
-		return null;
+		return ROUND.format(getEquityValue()/(buyPrice*quantity)) + "%";
 	}
 	// checks transaction
 	@Override
