@@ -1,9 +1,3 @@
-import java.io.File;
-
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-
 public class Trader extends Stocks {
 
 	// FIELDS
@@ -52,7 +46,6 @@ public class Trader extends Stocks {
 	}
 
 	private void buy() {
-		Portfolio.addEquity(ticker, quantity, price);
 		// Add to Portfolio
 		// Add to Transactions
 	}
@@ -79,34 +72,7 @@ public class Trader extends Stocks {
 		return score;
 	}
 	
-	public static void playSound() 
-	{
-		try 
-		{
-			File musicPath = new File("ApplePaySound.wav");
-			
-			if (musicPath.exists())
-			{
-				AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
-				Clip clip = AudioSystem.getClip();
-				clip.open(audioInput);
-				clip.start();
-				
-				Thread.sleep(clip.getMicrosecondLength()/1000);
-			} 
-			else
-			{
-				System.out.print("ERROR");
-			}
-		} 
-		catch (Exception ex)
-		{
-			ex.printStackTrace();
-		}
+	public void playSound() {
+		
 	}
-	
-//	public static void main(String[] args)
-//	{
-//		playSound();
-//	}
 }

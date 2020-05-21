@@ -1,10 +1,8 @@
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class Portfolio {
 
-	private static List<Equity> equities = new ArrayList<Equity>();
+	private static Equity[] equities = {};
 
 	private static double cash = 100000.00;
 
@@ -13,28 +11,29 @@ public class Portfolio {
 
 	}
 
-	public static void addEquity(String ticker, int quantity, double buyPrice)
+	public void addEquity(String ticker, int quantity, double buyPrice)
 	{
-		System.out.println("here");
-		boolean same = false;
-		int index = -1;
-		for (int i = 0; i < equities.size(); i++)
-		{
-			if (!same)
+		equities = Arrays.copyOf(equities, equities.length + 1);
+		boolean exists = false;
+		int existsEquityIndex = 0; // Initalization
+		if (equities.length > 0) {
+			for (int i = 0; i < equities.length; i++)
 			{
-			if (ticker == ((Equity) equities.toArray()[i]).getTicker())
-			{
-				same = true;
-				index = i;
-			}
+				if (ticker == equities[i].getTicker())
+				{
+					if (exists == false) {
+						exists = true;  
+						existsEquityIndex = i;
+					}
+				}
 			}
 		}
-		if (same) {
-			((Equity) equities.toArray()[index]).addToEquity(quantity, buyPrice);
-			cash -= (quantity*buyPrice);
+		if (exists == true) {
+			equities[existsEquityIndex].addToEquity(quantity, buyPrice);
+			cash -= buyPrice*quantity;
 		} else {
-		equities.add(new Stock(ticker, quantity, buyPrice));
-		cash -= (quantity*buyPrice);
+			equities[equities.length - 1] = new Stock(ticker, quantity, buyPrice, exists);
+			cash -= buyPrice*quantity;
 		}
 	}
 
@@ -45,7 +44,7 @@ public class Portfolio {
 
 	public int numberOfEquities()
 	{
-		return equities.size();
+		return equities.length;
 	}
 	
 	public static double getCash()
@@ -56,9 +55,9 @@ public class Portfolio {
 	public static double getPortfolioValue() 
 	{
 		double newValue = 0.0;
-		for (int i = 0; i < equities.size(); i++)
+		for (int i = 0; i < equities.length; i++)
 		{
-			newValue += ((Equity) equities.toArray()[i]).getEquityValue();
+			newValue += equities[i].getEquityValue();
 		}
 		return newValue + cash;
 	}
@@ -76,21 +75,20 @@ public class Portfolio {
 	public static String listAllEquities()
 	{
 		String stringList = "";
-		for (int i=0; i< equities.size(); i++)
+		for (int i=0; i< equities.length; i++)
 		{
-			stringList += ((Equity) equities.toArray()[i]).toStringEquity() + "\n";
+			stringList += equities[i].toStringEquity() + "\n";
 		}
 		return stringList;
 	}
 
-	public static void main(String[] args)
-	{
-		addEquity("AAPL",50,200.00);
-		addEquity("AAPL",50,200.00);
-		System.out.println(equities.size());
-		System.out.println(listAllEquities());
-		System.out.println(getDisplayCash());
-	}
+//	public  void main(String[] args)
+//	{
+//		addEquity("AAPL",50,200.00);
+//		addEquity("AAPL",50,200.00);
+//		System.out.println(equities.length);
+//		System.out.println(getPortfolioValue());
+//	}
 }
 
 // Add method to remove equity
