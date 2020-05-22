@@ -1,5 +1,8 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Transactions {
-	private static Transaction[] transactions = {};
+	private static List<Transaction> transactions = new ArrayList<Transaction>();
 	public Transactions()
 	{
 		// Nothing
@@ -8,19 +11,19 @@ public class Transactions {
 	public static String listAllTransactions()
 	{
 		String listTransactions = "";
-		for(int i=0; i<transactions.length; i++)
+		for(int i=0; i<transactions.size(); i++)
 		{
-			listTransactions += transactions[i].toStringTransaction() + "\n";
+			listTransactions += ((Transaction) transactions.toArray()[i]).toStringTransaction() + "\n";
 		}
 		return listTransactions;
 	}
-	public void addTranscation()
+	public static void addTranscation(String ticker, int quantity, double price, boolean active)
 	{
-		
+		transactions.add(new Stock(ticker, quantity, price, active));
 	}
 	public int numberOfTransactions()
 	{
-		return transactions.length;
+		return transactions.size();
 	}
 	
 }

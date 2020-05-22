@@ -17,6 +17,8 @@ import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
+
 import java.awt.List;
 
 @SuppressWarnings("serial")
@@ -34,21 +36,40 @@ public class Simvestor extends JFrame{
 	private static JTextField txtBuyingPower;
 	private static JTextField txtPortfolio;
 	private static JTextField txtTransactions;
-	private static JTextField portfolioList;
+<<<<<<< HEAD
+	private static JTextArea portfolioList;
 	private static JScrollPane scrollpanePortfolio;
-	private static String portfolioItems = "| Ticker | Quantity | Buy Price | Current Price | Profit | Gain |\n";
+	private static JTextArea transactionList;
+	private static JScrollPane scrollpaneTransaction;
+=======
+	private static JList portfolioList;
+	private static JScrollPane scrollpanePortfolio;
+	private static String portfolioItems[] = {
+			"| Ticker | Quantity | Buy Price | Current Price | Profit | Gain |",
+			"| AAPL | 50 | $200 | $300 | $5000 | 50% |" //Dummy
+			};
 	private static JList transactionList;
 	private static JScrollPane scrollpaneTransaction;
 	private static String transactionItems[] = {
-			"| Ticker | Status | Quantity | Buy Price | Current Price | Profit | Gain |", Transactions.listAllTransactions() 
-			};
+			"| Ticker | Status | Quantity | Buy Price | Current Price | Profit | Gain |",
+			"| AAPL | ACTIVE | 50 | $200 | $300 | $5000 | 50% |", //Dummy
+			"| AAPL | SOLD | 50 | $200 | $250 | $5000 | 50% |" //Dummy
+	};
+>>>>>>> 78bbe824321067b41eada4ebba1060f555dcda83
 	private static JTextField txtTicker;
 	private static JTextField txtPrice;
 	private static JTextField txtChange;
 	private static JTextField txtGain;
 	private static JTextField txtName;
-	private static Trader trade;
+<<<<<<< HEAD
 	private static JButton tradeButton;
+	private static String ticker;
+	private static double price;
+	private static int quantity;
+	private static final int x = 2;
+=======
+	private static Trader trade;
+>>>>>>> 78bbe824321067b41eada4ebba1060f555dcda83
 			
 	public Simvestor() {
 		// Empty
@@ -58,25 +79,25 @@ public class Simvestor extends JFrame{
 	private static void setup()
 	{
 		JFrame Simvestor = new JFrame("Simvestor");
-		Simvestor.setBounds(300, 300, 1600, 900);
+		Simvestor.setBounds(300/x, 300/x, 775, 475);
 		Simvestor.getContentPane().setLayout(null);
 
 		btnReset = new JButton("RESET");
 		btnReset.setForeground(Color.BLACK);
 		btnReset.setBackground(Color.RED);
-		btnReset.setFont(new Font("Arial", Font.BOLD, 24));
-		btnReset.setBounds(1000, 800, 500, 50);
+		btnReset.setFont(new Font("Arial", Font.BOLD, 24/x));
+		btnReset.setBounds(1000/x, 800/x, 500/x, 50/x);
 		btnReset.setVisible(true);
 		Simvestor.getContentPane().add(btnReset);
 
 		txtBalance = new JTextField();
 		txtBalance.setBackground(new Color(144, 238, 144)); // Red if Down from Previous Day
 		txtBalance.setForeground(new Color(0, 0, 0));
-		txtBalance.setFont(new Font("Arial", Font.PLAIN, 72));
+		txtBalance.setFont(new Font("Arial", Font.PLAIN, 72/x));
 		txtBalance.setHorizontalAlignment(SwingConstants.CENTER);
 		txtBalance.setEditable(false);
 		txtBalance.setText(Portfolio.getDisplayValue());
-		txtBalance.setBounds(50, 50, 400, 150);
+		txtBalance.setBounds(50/x, 50/x, 400/x, 150/x);
 		txtBalance.setColumns(10);
 		txtBalance.setVisible(true);
 		Simvestor.getContentPane().add(txtBalance);
@@ -84,32 +105,48 @@ public class Simvestor extends JFrame{
 		txtCash = new JTextField();
 		txtCash.setBackground(new Color(144, 238, 144));
 		txtCash.setForeground(new Color(0, 0, 0));
-		txtCash.setFont(new Font("Arial", Font.PLAIN, 72));
+		txtCash.setFont(new Font("Arial", Font.PLAIN, 72/x));
 		txtCash.setHorizontalAlignment(SwingConstants.CENTER);
 		txtCash.setEditable(false);
 		txtCash.setText(Portfolio.getDisplayCash());
-		txtCash.setBounds(550, 50, 400, 150);
+		txtCash.setBounds(550/x, 50/x, 400/x, 150/x);
 		txtCash.setColumns(10);
 		txtCash.setVisible(true);
 		Simvestor.getContentPane().add(txtCash);
 
+<<<<<<< HEAD
 		tradeButton = new JButton("Trade");
-		tradeButton.setFont(new Font("Arial", Font.BOLD, 48));
+		tradeButton.setFont(new Font("Arial", Font.BOLD, 48/x));
 		tradeButton.setBackground(new Color(255,221,60));
-		tradeButton.setBounds(1000, 650, 500, 100);
+		tradeButton.setBounds(1000/x, 650/x, 500/x, 100/x);
 		tradeButton.setVisible(true);
 		tradeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				trade.trade();
+				Trader.trade();
 				Trader.playSound();
-				Timer.wait(2);
+				price = 0;
+				ticker = "";
+				quantity = 0;
+				Timer.wait(1);
 				txtCash.setText(Portfolio.getDisplayCash());
+				portfolioList.setText(Portfolio.listAllEquities());
+				transactionList.setText(Transactions.listAllTransactions());
+				FileHandler.writePortfolioData();
+				FileHandler.writeTransactionData();
 			}});
 		Simvestor.getContentPane().add(tradeButton);
 
+=======
+		btnReviewOrder = new JButton("Review Order");
+		btnReviewOrder.setFont(new Font("Arial", Font.BOLD, 48));
+		btnReviewOrder.setBackground(new Color(255,221,60));
+		btnReviewOrder.setBounds(1000, 650, 500, 100);
+		btnReviewOrder.setVisible(true);
+		Simvestor.getContentPane().add(btnReviewOrder);
+>>>>>>> 78bbe824321067b41eada4ebba1060f555dcda83
 
 		txtQuantity = new JTextField("Quantity");
-		txtQuantity.setFont(new Font("Arial", Font.PLAIN, 24));
+		txtQuantity.setFont(new Font("Arial", Font.PLAIN, 24/x));
 		txtQuantity.addFocusListener(new FocusListener()
 		{
 			public void focusGained(FocusEvent e) {
@@ -125,35 +162,46 @@ public class Simvestor extends JFrame{
 				}
 			}
 		});
-		txtQuantity.setBounds(1000, 550, 500, 50);
+		txtQuantity.setBounds(1000/x, 550/x, 500/x, 50/x);
 		txtQuantity.setColumns(10);
 		txtQuantity.setVisible(true);
+<<<<<<< HEAD
 		txtQuantity.addCaretListener(new CaretListener() {
 
 			@Override
 			public void caretUpdate(CaretEvent e) {
 				try {
 				int quantity = Integer.parseInt(txtQuantity.getText());
-				trade.setQuantity(quantity);
+				Trader.setQuantity(quantity);
+				}
+				catch (NullPointerException ex) {
+					System.out.println("");
 				}
 				catch (NumberFormatException ex)
 				{
-					ex.printStackTrace();
+					System.out.println("0");
 				}
 			}
 			
 		});
+=======
+>>>>>>> 78bbe824321067b41eada4ebba1060f555dcda83
 		Simvestor.getContentPane().add(txtQuantity);
 
 		btnBuy = new JButton("Buy");
-		btnBuy.setFont(new Font("Arial", Font.BOLD, 24));
+		btnBuy.setFont(new Font("Arial", Font.BOLD, 24/x));
 		btnBuy.setBackground(new Color(144, 238, 144));
 		btnBuy.setForeground(new Color(0, 0, 0));
-		btnBuy.setBounds(1000, 450, 250, 50);
+		btnBuy.setBounds(1000/x, 450/x, 250/x, 50/x);
 		btnBuy.setVisible(true);
 		btnBuy.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
-				trade.setType(true);
+<<<<<<< HEAD
+				Trader.setType(true);
+=======
+				
+>>>>>>> 78bbe824321067b41eada4ebba1060f555dcda83
 			}
 			
 		});
@@ -161,18 +209,23 @@ public class Simvestor extends JFrame{
 
 		btnSell = new JButton("Sell");
 		btnSell.setForeground(Color.BLACK);
-		btnSell.setFont(new Font("Arial", Font.BOLD, 24));
+		btnSell.setFont(new Font("Arial", Font.BOLD, 24/x));
 		btnSell.setBackground(new Color(255, 99, 71));
-		btnSell.setBounds(1250, 450, 250, 50);
+		btnSell.setBounds(1250/x, 450/x, 250/x, 50/x);
+		btnSell.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Trader.setType(false);
+			}
+		});
 		Simvestor.getContentPane().add(btnSell);
 
 		txtAccountValue = new JTextField();
 		txtAccountValue.setEditable(false);
 		txtAccountValue.setText("Account Value");
 		txtAccountValue.setHorizontalAlignment(SwingConstants.CENTER);
-		txtAccountValue.setFont(new Font("Arial", Font.BOLD, 24));
+		txtAccountValue.setFont(new Font("Arial", Font.BOLD, 24/x));
 		txtAccountValue.setBackground(new Color(211, 211, 211));
-		txtAccountValue.setBounds(50, 200, 400, 50);
+		txtAccountValue.setBounds(50/x, 200/x, 400/x, 50/x);
 		txtAccountValue.setColumns(10);
 		txtAccountValue.setVisible(true);
 		Simvestor.getContentPane().add(txtAccountValue);
@@ -180,63 +233,71 @@ public class Simvestor extends JFrame{
 		txtBuyingPower = new JTextField();
 		txtBuyingPower.setText("Buying Power");
 		txtBuyingPower.setHorizontalAlignment(SwingConstants.CENTER);
-		txtBuyingPower.setFont(new Font("Arial", Font.BOLD, 24));
+		txtBuyingPower.setFont(new Font("Arial", Font.BOLD, 24/x));
 		txtBuyingPower.setEditable(false);
 		txtBuyingPower.setColumns(10);
 		txtBuyingPower.setBackground(new Color(211, 211, 211));
-		txtBuyingPower.setBounds(550, 200, 400, 50);
+		txtBuyingPower.setBounds(550/x, 200/x, 400/x, 50/x);
 		txtBuyingPower.setVisible(true);
 		Simvestor.getContentPane().add(txtBuyingPower);
 
 		txtPortfolio = new JTextField();
 		txtPortfolio.setText("Portfolio");
 		txtPortfolio.setHorizontalAlignment(SwingConstants.CENTER);
-		txtPortfolio.setFont(new Font("Arial", Font.BOLD, 24));
+		txtPortfolio.setFont(new Font("Arial", Font.BOLD, 24/x));
 		txtPortfolio.setEditable(false);
 		txtPortfolio.setColumns(10);
 		txtPortfolio.setBackground(new Color(211, 211, 211));
-		txtPortfolio.setBounds(50, 300, 400, 50);
+		txtPortfolio.setBounds(50/x, 300/x, 400/x, 50/x);
 		txtPortfolio.setVisible(true);
 		Simvestor.getContentPane().add(txtPortfolio);
 
 		txtTransactions = new JTextField();
 		txtTransactions.setText("Transactions");
 		txtTransactions.setHorizontalAlignment(SwingConstants.CENTER);
-		txtTransactions.setFont(new Font("Arial", Font.BOLD, 24));
+		txtTransactions.setFont(new Font("Arial", Font.BOLD, 24/x));
 		txtTransactions.setEditable(false);
 		txtTransactions.setColumns(10);
 		txtTransactions.setBackground(new Color(211, 211, 211));
-		txtTransactions.setBounds(550, 300, 400, 50);
+		txtTransactions.setBounds(550/x, 300/x, 400/x, 50/x);
 		txtTransactions.setVisible(true);
 		Simvestor.getContentPane().add(txtTransactions);
 		
-		portfolioList = new JTextField(portfolioItems);
-		portfolioList.setFont(new Font("Arial", Font.BOLD, 14));
+<<<<<<< HEAD
+		portfolioList = new JTextArea();
+		portfolioList.setFont(new Font("Arial", Font.BOLD, 14/x));
 		portfolioList.setEditable(false);
-		portfolioList.setBounds(50,350,400,500);
+		portfolioList.setBounds(50/x,350/x,400/x,500/x);
 		Simvestor.getContentPane().add(portfolioList);
+=======
+		portfolioList = new JList(portfolioItems);
+		portfolioList.setFont(new Font("Arial", Font.BOLD, 14));
+		scrollpanePortfolio = new JScrollPane(portfolioList);
+		scrollpanePortfolio.setBounds(50,350,400,500);
+		Simvestor.getContentPane().add(scrollpanePortfolio);
+>>>>>>> 78bbe824321067b41eada4ebba1060f555dcda83
 		
-		transactionList = new JList(transactionItems);
-		transactionList.setFont(new Font("Arial", Font.BOLD, 12));
-		scrollpaneTransaction = new JScrollPane(transactionList);
-		scrollpaneTransaction.setBounds(550,350,400,500);
-		Simvestor.getContentPane().add(scrollpaneTransaction);
+		transactionList = new JTextArea();
+		transactionList.setFont(new Font("Arial", Font.BOLD, 12/x));
+		transactionList.setBounds(550/x,350/x,400/x,500/x);
+		transactionList.setEditable(false);
+		Simvestor.getContentPane().add(transactionList);
 		
 		txtPrice = new JTextField();
 		txtPrice.setEditable(false);
 		txtPrice.setHorizontalAlignment(SwingConstants.TRAILING);
-		txtPrice.setFont(new Font("Arial", Font.PLAIN, 48));
+		txtPrice.setFont(new Font("Arial", Font.PLAIN, 48/x));
 		txtPrice.setText("");
-		txtPrice.setBounds(1250, 150, 250, 150);
+		txtPrice.setBounds(1250/x, 150/x, 250/x, 150/x);
 		Simvestor.getContentPane().add(txtPrice);
 		txtPrice.setColumns(10);
 		
 		txtTicker = new JTextField();
 		txtTicker.setEditable(false);
 		txtTicker.setText("");
-		txtTicker.setFont(new Font("Arial", Font.BOLD, 72));
+		txtTicker.setFont(new Font("Arial", Font.BOLD, 72/x));
 		txtTicker.setColumns(10);
-		txtTicker.setBounds(1000, 150, 250, 150);
+		txtTicker.setBounds(1000/x, 150/x, 250/x, 150/x);
 		Simvestor.getContentPane().add(txtTicker);
 		
 //		txtChange = new JTextField();
@@ -258,15 +319,15 @@ public class Simvestor extends JFrame{
 //		Simvestor.getContentPane().add(txtGain);
 		
 		txtName = new JTextField();
-		txtName.setFont(new Font("Arial", Font.BOLD, 24));
+		txtName.setFont(new Font("Arial", Font.BOLD, 24/x));
 		txtName.setText("");
 		txtName.setEditable(false);
-		txtName.setBounds(1000, 300, 500, 50);
+		txtName.setBounds(1000/x, 300/x, 500/x, 50/x);
 		Simvestor.getContentPane().add(txtName);
 		txtName.setColumns(10);
 		
 		txtSearch = new JTextField("Search");
-		txtSearch.setFont(new Font("Arial", Font.BOLD, 24));
+		txtSearch.setFont(new Font("Arial", Font.BOLD, 24/x));
 		txtSearch.addFocusListener(new FocusListener()
 		{
 			public void focusGained(FocusEvent e) {
@@ -282,7 +343,7 @@ public class Simvestor extends JFrame{
 				}
 			}
 		});
-		txtSearch.setBounds(1000, 50, 500, 50);
+		txtSearch.setBounds(1000/x, 50/x, 500/x, 50/x);
 		txtSearch.setColumns(10);
 		txtSearch.setVisible(true);
 		txtSearch.addActionListener(new ActionListener() {
@@ -292,7 +353,11 @@ public class Simvestor extends JFrame{
 					txtName.setText(Stocks.getCompanyName(search));
 					txtPrice.setText(Stocks.getDisplayPrice(ticker));
 					txtTicker.setText(ticker);
-					trade = new Trader(ticker, Stocks.getPrice(ticker));
+<<<<<<< HEAD
+					Trader.setTicker(ticker);
+					Trader.setPrice(Stocks.getPrice(ticker));
+=======
+>>>>>>> 78bbe824321067b41eada4ebba1060f555dcda83
 //					txtChange.setText(Stocks.getDisplayPriceChange(ticker));
 //					txtGain.setText(Stocks.getDisplayPercentChange(ticker));
 				}});
@@ -302,7 +367,6 @@ public class Simvestor extends JFrame{
 		Simvestor.setVisible(true);
 		Simvestor.setResizable(true);
 		Simvestor.getContentPane().setLayout(null);
-		
 	}
 
 	public static void main(String[] args)

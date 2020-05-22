@@ -1,18 +1,12 @@
-import java.io.File;
-
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-
 public class Trader extends Stocks {
 
 	// FIELDS
-	private String ticker;
-	private double price;
-	private int quantity;
-	private boolean buy;
+	private static String ticker;
+	private static double price;
+	private static int quantity;
+	private static boolean buy;
 	
-	public double cash = Portfolio.getCash();
+	public static double cash = Portfolio.getCash();
 
 	// CONSTRUCTOR
 	
@@ -24,21 +18,32 @@ public class Trader extends Stocks {
 	
 	// METHODS
 	
-	public void setType(boolean buy)
+	public static void setType(boolean b)
 	{
-		this.buy = buy;
+		buy = b;
 	}
 	
-	public void setQuantity(int quantity)
+	public static void setQuantity(int n)
 	{
-		this.quantity = quantity;
+		quantity = n;
 	}
 	
-	public void trade()
+	public static void setTicker(String name)
+	{
+		ticker = name;
+	}
+	
+	public static void setPrice(double dollars)
+	{
+		price = dollars;
+	}
+	
+	public static void trade()
 	{
 		checkTrade();
 		if (buy)
 		{
+			System.out.println(ticker);
 			buy();
 		} else if (!buy)
 		{
@@ -46,18 +51,23 @@ public class Trader extends Stocks {
 		}
 	}
 	
-	private void sell() {
-		// Remove from Portfolio
-		// Add to Transactions
+	private static void sell() {
+		Portfolio.removeEquity(ticker, quantity, price);
+		Transactions.addTranscation(ticker, quantity, price, false);
 	}
 
-	private void buy() {
+<<<<<<< HEAD
+	private static void buy() {
 		Portfolio.addEquity(ticker, quantity, price);
+		Transactions.addTranscation(ticker, quantity, price, true);
+=======
+	private void buy() {
 		// Add to Portfolio
 		// Add to Transactions
+>>>>>>> 78bbe824321067b41eada4ebba1060f555dcda83
 	}
 
-	public String checkTrade() 
+	public static String checkTrade() 
 	{
 		if (buy)
 		{
@@ -79,34 +89,17 @@ public class Trader extends Stocks {
 		return score;
 	}
 	
-	public static void playSound() 
-	{
-		try 
-		{
-			File musicPath = new File("ApplePaySound.wav");
-			
-			if (musicPath.exists())
-			{
-				AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
-				Clip clip = AudioSystem.getClip();
-				clip.open(audioInput);
-				clip.start();
-				
-				Thread.sleep(clip.getMicrosecondLength()/1000);
-			} 
-			else
-			{
-				System.out.print("ERROR");
-			}
-		} 
-		catch (Exception ex)
-		{
-			ex.printStackTrace();
-		}
+	public void playSound() {
+		
 	}
+<<<<<<< HEAD
 	
 //	public static void main(String[] args)
 //	{
-//		playSound();
+//		Portfolio.addEquity("AAPL", 50, 300.00);
+//		Portfolio.addEquity("AAPL", 50, 310.00);
+//		System.out.println(Portfolio.listAllEquities());
 //	}
+=======
+>>>>>>> 78bbe824321067b41eada4ebba1060f555dcda83
 }
