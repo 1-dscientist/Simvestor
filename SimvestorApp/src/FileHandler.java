@@ -7,13 +7,13 @@ import java.util.Scanner;
 
 public class FileHandler {
 
-	private final static String portfolioData = "Portfolio.txt";
-	private final static String transactionData = "Transactions.txt";
+	private final String portfolioData = "Portfolio.txt";
+	private final String transactionData = "Transactions.txt";
 
-	private static String portfolio;
-	private static String transactions;
+	private String portfolio;
+	private String transactions;
 
-	public static void writePortfolioData()
+	public void writePortfolioData()
 	{
 		portfolio = Portfolio.listAllEquities();
 		try {
@@ -27,7 +27,7 @@ public class FileHandler {
 		}
 	}
 
-	public static String readPortfolioData()
+	public String readPortfolioData()
 	{
 		String out = "";
 
@@ -51,7 +51,7 @@ public class FileHandler {
 		return out;
 	}
 
-	public static void writeTransactionData()
+	public void writeTransactionData()
 	{
 		transactions = Transactions.listAllTransactions();
 		try {
@@ -65,7 +65,7 @@ public class FileHandler {
 		}
 	}
 
-	public static String readTransactionData()
+	public String readTransactionData()
 	{
 		String out = "";
 
@@ -89,8 +89,53 @@ public class FileHandler {
 		return out;
 	}
 	
+	public void parseData()
+	{
+		// Transaction Data
+		for (int i = 0; i < (readTransactionData().split("\n").length); i++)
+		{
+			boolean active = false;
+			int quantity;
+			double price;
+			String ticker;
+			if ((readTransactionData().split("\n")[i].split(" ")[0]) == "PURCHASED")
+			{
+				active = true;
+			} else if ((readTransactionData().split("\n")[i].split(" ")[0]) == "SOLD")
+			{
+				active = false;
+			}
+			quantity = Integer.parseInt(readTransactionData().split("\n")[i].split(" ")[1]);
+			ticker = readTransactionData().split("\n")[i].split(" ")[4];
+			price = Double.parseDouble(readTransactionData().split("\n")[i].split(" ")[6].substring(1));
+			Transactions.addTranscation(ticker, quantity, price, active);
+			
+		}
+		
+		// Portfolio Data
+		for (int i = 0; i < (readPortfolioData().split("\n").length); i++)
+		{
+			int quantity;
+			double price;
+			String ticker;
+			quantity = Integer.parseInt(readPortfolioData().split("\n")[i].split(" ")[0]);
+			ticker = readPortfolioData().split("\n")[i].split(" ")[3];
+			price = Double.parseDouble(readPortfolioData().split("\n")[i].split(" ")[5].substring(1));
+			Portfolio.addEquity(ticker, quantity, price);
+		}
+	}
+	
+	public void reset()
+	{
+		
+	}
+	
 //	public static void main(String[] args)
 //	{
-//		System.out.print(readTransactionData().split("\n")[0]);
+//		FileHandler fileHandler = new FileHandler();
+//		for (int i = 0; i < (fileHandler.readPortfolioData().split("\n").length); i++)
+//		{
+//			System.out.println(fileHandler.readPortfolioData().split("\n")[i].split(" ")[5]);
+//		}
 //	}
 }
