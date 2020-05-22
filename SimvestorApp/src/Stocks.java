@@ -127,55 +127,6 @@ public class Stocks {
 		return name;
 	}
 
-//	public static double getYdayPrice(String ticker)
-//	{
-//		String result = null;
-//		String[] results = null;
-//		try{  
-//			UserAgent userAgent = new UserAgent(); 
-//			userAgent.sendGET(baseLinkDailyPrice.replace("|TICKER|",ticker).replace("|APIKEY|",API_KEY));
-//			JNode node = userAgent.json.findEach("4. close");
-//			result = node.toString();
-//			results = result.split(",");
-//			for (int i = 0; i < results.length; i++)
-//			{
-//				results[i] = results[i].replace("[","").replace("\"","").replace("]","").replace(" ","");
-//			}
-//		} catch(JauntException e){
-//			System.err.println(e);
-//		}
-//		return Double.parseDouble(results[1]);
-//	}
-
-//	public static double getPercentChange(String ticker)
-//	{
-//		return ((getPrice(ticker)/getYdayPrice(ticker))-1)*100;
-//	}
-//
-//	public static String getDisplayPercentChange(String ticker)
-//	{
-//		double change = ((getPrice(ticker)/getYdayPrice(ticker))-1)*100;
-//		String formattedChange = String.valueOf(ROUND.format(change));
-//		return formattedChange+"%";
-//	}
-//
-//	public static double getPriceChange(String ticker)
-//	{
-//		return getPrice(ticker)-getYdayPrice(ticker);
-//	}
-
-//	public static String getDisplayPriceChange(String ticker)
-//	{
-//		double change = getPrice(ticker)-getYdayPrice(ticker);
-//		String formattedPrice = String.valueOf(ROUND.format(change));
-//		if (change>0)
-//		{
-//			return "+"+formattedPrice;
-//		} else {
-//			return "-"+formattedPrice;
-//		}
-//	}
-
 	public static String searchMatch(String search) 
 	{
 		String ticker = null;
