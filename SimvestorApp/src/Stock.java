@@ -14,6 +14,7 @@ public class Stock extends Stocks implements Equity, Transaction {
 	// constructor
 	public Stock(String ticker, int quantity, double buyPrice, boolean active)
 	{
+<<<<<<< HEAD
 		this.ticker = ticker;
 		this.quantity = quantity;
 		this.buyPrice = buyPrice;
@@ -25,6 +26,10 @@ public class Stock extends Stocks implements Equity, Transaction {
 		this.ticker = ticker;
 		this.quantity = quantity;
 		this.buyPrice = buyPrice;
+		active = true;
+=======
+		
+>>>>>>> 78bbe824321067b41eada4ebba1060f555dcda83
 	}
 	@Override
 	// gets ticker
@@ -72,7 +77,7 @@ public class Stock extends Stocks implements Equity, Transaction {
 	
 	public String getTotalDisplayProfit() {
 		// TODO Auto-generated method stub
-		return "$" + ROUND.format(getEquityValue()-(buyPrice*quantity));
+		return "$"+Double.toString(getEquityValue()-(buyPrice*quantity));
 	}
 	// gets gain
 	@Override
@@ -84,7 +89,7 @@ public class Stock extends Stocks implements Equity, Transaction {
 	@Override
 	public String getDisplayGain() {
 		// TODO Auto-generated method stub
-		return ROUND.format(getEquityValue()/(buyPrice*quantity)) + "%";
+		return null;
 	}
 	// checks transaction
 	@Override
@@ -108,13 +113,19 @@ public class Stock extends Stocks implements Equity, Transaction {
 	// to string
 	@Override
 	public String toStringEquity() {
-		return "| " + ticker + " | " + Integer.toString(quantity) + " | " + Double.toString(buyPrice) + " | " + getDisplayPrice() + " | " + getTotalDisplayProfit() + " | " + getDisplayGain(); 
+		return Integer.toString(quantity) + " shares of " + ticker + " at $" + ROUND.format(buyPrice); 
 	}
 	// transaction to string
 	@Override
 	public String toStringTransaction() {
 		// TODO Auto-generated method stub
-		return null;
+		String type = "";
+		if (active) {
+			type = "PURCHASED ";
+		} else {
+			type = "SOLD ";
+		}
+		return type + Integer.toString(quantity) + " shares of " + ticker + " at $" + ROUND.format(buyPrice);
 	}
 	@Override
 	// adds 
@@ -122,7 +133,12 @@ public class Stock extends Stocks implements Equity, Transaction {
 		// TODO Auto-generated method stub
 		
 	}
-	// subtracts
+	// subtracts from equity, so returns profit
+	@Override
+	public void subtractFromEquity(double sellPrice, int quantity) {
+		this.quantity -= quantity;
+	}
+
 	@Override
 	public void subtractFrom(double sellPrice, int quantity) {
 		// TODO Auto-generated method stub

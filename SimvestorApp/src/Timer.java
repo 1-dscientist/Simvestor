@@ -16,7 +16,7 @@ public class Timer {
 		return myObj.getMinute();
 	}
 	
-	public static void wait(int seconds)
+	public void wait(int seconds)
 	{
 		try {
 			TimeUnit.SECONDS.sleep(seconds);

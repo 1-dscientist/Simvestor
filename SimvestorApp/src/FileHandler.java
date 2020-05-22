@@ -7,13 +7,13 @@ import java.util.Scanner;
 
 public class FileHandler {
 
-	private final String portfolioData = "Portfolio.txt";
-	private final String transactionData = "Transactions.txt";
+	private final static String portfolioData = "Portfolio.txt";
+	private final static String transactionData = "Transactions.txt";
 
-	private String portfolio;
-	private String transactions;
+	private static String portfolio;
+	private static String transactions;
 
-	public void writePortfolioData()
+	public static void writePortfolioData()
 	{
 		portfolio = Portfolio.listAllEquities();
 		try {
@@ -27,7 +27,7 @@ public class FileHandler {
 		}
 	}
 
-	public String readPortfolioData()
+	public static String readPortfolioData()
 	{
 		String out = "";
 
@@ -51,7 +51,7 @@ public class FileHandler {
 		return out;
 	}
 
-	public void writeTransactionData()
+	public static void writeTransactionData()
 	{
 		transactions = Transactions.listAllTransactions();
 		try {
@@ -65,7 +65,7 @@ public class FileHandler {
 		}
 	}
 
-	public String readTransactionData()
+	public static String readTransactionData()
 	{
 		String out = "";
 
@@ -87,5 +87,10 @@ public class FileHandler {
 		}
 
 		return out;
+	}
+	
+	public static void main(String[] args)
+	{
+		System.out.print(readTransactionData().split("\n")[0]);
 	}
 }
