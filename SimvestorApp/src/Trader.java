@@ -77,7 +77,7 @@ public class Trader extends Stocks {
 			}
 		} else if (!buy)
 		{
-			// Check if equity exists to be sold
+			
 		}
 		return "";
 	}
@@ -99,7 +99,7 @@ public class Trader extends Stocks {
 			} 
 			else
 			{
-				System.out.print("ERROR");
+				// System.out.print("ERROR");
 			}
 		} 
 		catch (Exception ex)

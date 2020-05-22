@@ -88,9 +88,10 @@ public class FileHandler {
 
 		return out;
 	}
-	
+
 	public void parseData()
 	{
+		try {
 		// Transaction Data
 		for (int i = 0; i < (readTransactionData().split("\n").length); i++)
 		{
@@ -109,9 +110,9 @@ public class FileHandler {
 			ticker = readTransactionData().split("\n")[i].split(" ")[4];
 			price = Double.parseDouble(readTransactionData().split("\n")[i].split(" ")[6].substring(1));
 			Transactions.addTranscation(ticker, quantity, price, active);
-			
+
 		}
-		
+
 		// Portfolio Data
 		for (int i = 0; i < (readPortfolioData().split("\n").length); i++)
 		{
@@ -122,20 +123,49 @@ public class FileHandler {
 			ticker = readPortfolioData().split("\n")[i].split(" ")[3];
 			price = Double.parseDouble(readPortfolioData().split("\n")[i].split(" ")[5].substring(1));
 			Portfolio.addEquity(ticker, quantity, price);
+		} 
+		} catch (ArrayIndexOutOfBoundsException ex)
+		{
+			// System.out.println("");
+		} catch (NumberFormatException ex)
+		{
+			
 		}
 	}
-	
+
 	public void reset()
 	{
+		try {
+
+			FileWriter fw = new FileWriter(portfolioData);
+			fw.write("");
+			fw.close();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+
+			FileWriter fw = new FileWriter(transactionData);
+			fw.write("");
+			fw.close();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
+		Portfolio.reset();
+		Transactions.reset();
+		readPortfolioData();
+		readTransactionData();
 	}
-	
-//	public static void main(String[] args)
-//	{
-//		FileHandler fileHandler = new FileHandler();
-//		for (int i = 0; i < (fileHandler.readPortfolioData().split("\n").length); i++)
-//		{
-//			System.out.println(fileHandler.readPortfolioData().split("\n")[i].split(" ")[5]);
-//		}
-//	}
+
+	//	public static void main(String[] args)
+	//	{
+	//		FileHandler fileHandler = new FileHandler();
+	//		for (int i = 0; i < (fileHandler.readPortfolioData().split("\n").length); i++)
+	//		{
+	//			System.out.println(fileHandler.readPortfolioData().split("\n")[i].split(" ")[5]);
+	//		}
+	//	}
 }

@@ -21,6 +21,12 @@ public class Transactions {
 	{
 		transactions.add(new Stock(ticker, quantity, price, active));
 	}
+	
+	public static void reset()
+	{
+		transactions.removeAll(transactions);
+	}
+	
 	public int numberOfTransactions()
 	{
 		return transactions.size();

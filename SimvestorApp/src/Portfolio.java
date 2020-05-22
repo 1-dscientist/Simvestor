@@ -18,21 +18,28 @@ public class Portfolio {
 
 		boolean same = false;
 		int index = -1;
-		for (int i = 0; i < equities.size(); i++)
-		{
-			if (same == false)
+		try {
 			{
-				if (ticker.contentEquals((((Equity) equities.toArray()[i]).getTicker())))
+				for (int i = 0; i < equities.size(); i++)
 				{
-					same = true;
-					index = i;
+					if (same == false)
+					{
+						if (ticker.contentEquals((((Equity) equities.toArray()[i]).getTicker())))
+						{
+							same = true;
+							index = i;
+						}
+					}
 				}
 			}
-		}
-		if (same == true) {
-			((Equity) equities.toArray()[index]).addToEquity(quantity, buyPrice);
-			cash -= buyPrice*quantity;
-		} else {
+			if (same == true) {
+				((Equity) equities.toArray()[index]).addToEquity(quantity, buyPrice);
+				cash -= buyPrice*quantity;
+			} else {
+				equities.add(new Stock(ticker, quantity, buyPrice));
+				cash -= (quantity*buyPrice);
+			}
+		} catch (NullPointerException ex) {
 			equities.add(new Stock(ticker, quantity, buyPrice));
 			cash -= (quantity*buyPrice);
 		}
@@ -77,11 +84,16 @@ public class Portfolio {
 	public static double getPortfolioValue() 
 	{
 		double newValue = 0.0;
-		for (int i = 0; i < equities.size(); i++)
+		try
 		{
-			newValue += ((Stock) equities.toArray()[i]).getEquityValue();
+			for (int i = 0; i < equities.size(); i++)
+			{
+				newValue += ((Stock) equities.toArray()[i]).getEquityValue();
+			}
+			return newValue + cash;
+		} catch (NullPointerException ex) {
+			return cash;
 		}
-		return newValue + cash;
 	}
 
 	public static String getDisplayValue()
@@ -104,15 +116,21 @@ public class Portfolio {
 		return stringList;
 	}
 
+	public static void reset()
+	{
+		equities.removeAll(equities);
+		cash = 100000.00;
+	}
 
-//	public static void main(String[] args)
-//	{
-//		addEquity("AAPL",50,200.00);
-//		addEquity("AAPL",50,300.00);
-//		System.out.println(equities.size());
-//		System.out.println(listAllEquities());
-//		System.out.println(getDisplayCash());
-//	}
+
+	//	public static void main(String[] args)
+	//	{
+	//		addEquity("AAPL",50,200.00);
+	//		addEquity("AAPL",50,300.00);
+	//		System.out.println(equities.size());
+	//		System.out.println(listAllEquities());
+	//		System.out.println(getDisplayCash());
+	//	}
 }
 
 // Add method to remove equity

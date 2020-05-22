@@ -69,6 +69,15 @@ public class Simvestor extends JFrame{
 		btnReset.setFont(new Font("Arial", Font.BOLD, 24/x));
 		btnReset.setBounds(1000/x, 800/x, 500/x, 50/x);
 		btnReset.setVisible(true);
+		btnReset.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				fileHandler.reset();
+				portfolioList.setText("");
+				transactionList.setText("");
+				txtCash.setText(Portfolio.getDisplayCash());
+				txtBalance.setText(Portfolio.getDisplayValue());
+			}
+		});
 		Simvestor.getContentPane().add(btnReset);
 
 		txtBalance = new JTextField();
@@ -110,6 +119,7 @@ public class Simvestor extends JFrame{
 				quantity = 0;
 				Timer.wait(1);
 				txtCash.setText(Portfolio.getDisplayCash());
+				txtBalance.setText(Portfolio.getDisplayValue());
 				portfolioList.setText(Portfolio.listAllEquities());
 				transactionList.setText(Transactions.listAllTransactions());
 				fileHandler.writePortfolioData();
@@ -145,11 +155,11 @@ public class Simvestor extends JFrame{
 				Trader.setQuantity(quantity);
 				}
 				catch (NullPointerException ex) {
-					System.out.println("");
+					 // System.out.println("");
 				}
 				catch (NumberFormatException ex)
 				{
-					System.out.println("0");
+					// System.out.println("");
 				}
 			}
 		});

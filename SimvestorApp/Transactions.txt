@@ -1,6 +1,1 @@
-SOLD 100 shares of AAPL at $316.85
-SOLD 100 shares of FB at $231.39
-SOLD 10 shares of GOOG at $1402.80
-SOLD 100 shares of MSFT at $183.43
-SOLD 100 shares of IBM at $118.36
-SOLD 100 shares of MSFT at $183.43
+PURCHASED 50 shares of AAPL at $316.85

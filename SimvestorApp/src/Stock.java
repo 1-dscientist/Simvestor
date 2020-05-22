@@ -57,13 +57,19 @@ public class Stock extends Stocks implements Equity, Transaction {
 	// gets display price
 	@Override
 	public String getDisplayPrice() {
-		String displayPrice = super.getDisplayPrice(ticker);
+		String displayPrice = super.getDisplayPriceEquity(ticker);
 		return displayPrice;
+	}
+	
+	public double getCurrentEquityPrice()
+	{
+		currentPrice = super.getPriceEquity(ticker);
+		return currentPrice;
 	}
 	// gets equity value
 	@Override
 	public double getEquityValue() {
-		return (double) getCurrentPrice() * quantity;
+		return (double) getCurrentEquityPrice() * quantity;
 	}
 	// gets total profit by subtracting buy price * quantity
 	@Override

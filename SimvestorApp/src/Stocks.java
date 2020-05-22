@@ -80,6 +80,58 @@ public class Stocks {
 		String formattedPrice = String.valueOf(ROUND.format(getPrice(ticker)));
 		return "$" + formattedPrice;
 	}
+	
+	public static double getPriceEquity(String ticker)
+	{
+		double price = 0;
+		Scanner scan = null;
+		@SuppressWarnings("deprecation")
+		String url = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=" + java.net.URLEncoder.encode(ticker) + "&apikey=0M8I308CQIX4V57T";
+
+		try {
+			String response = "";
+
+			URL reader = new URL(url);
+			scan = new Scanner(reader.openStream());
+
+			while(scan.hasNextLine()) {
+				String line = scan.nextLine();
+				response += line + "\n";
+			}
+
+			//System.out.println(response);
+			
+			String[] lines = response.split("\n");
+			for (int i = 0; i < lines.length; i++)
+			{
+				if (lines[i].contains("05. price")) {
+					price = Double.parseDouble(lines[i].split(": \"")[1].split("\",")[0]);
+				}
+			}
+			
+			/*
+
+			NOTE:
+			If you'd like to pull an image from online, that is possible to do using the ImageIO class. It would look something like:
+			
+			Image downloadedImage = ImageIO.read(new URL("URL OF THE IMAGE TO DOWNLOAD"));
+"
+			 */
+
+		} catch(IOException ex) {
+			ex.printStackTrace();
+		} finally {
+			if (scan != null)
+				scan.close();
+		}
+		return price;
+	}
+
+	public static String getDisplayPriceEquity(String ticker)
+	{
+		String formattedPrice = String.valueOf(ROUND.format(getPriceEquity(ticker)));
+		return "$" + formattedPrice;
+	}
 
 	// TODO
 	public static String getCompanyName(String search) 
