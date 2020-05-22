@@ -1,1 +1,6 @@
-PURCHASED 100 shares of AAPL at $316.85
+PURCHASED 1000 shares of INFY at $8.93
+PURCHASED 100 shares of WMT at $124.99
+SOLD 50 shares of WMT at $124.99
+SOLD 50 shares of WMT at $124.99
+PURCHASED 500 shares of INFY at $8.93
+SOLD 1500 shares of INFY at $8.93

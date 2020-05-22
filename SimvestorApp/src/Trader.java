@@ -1,3 +1,9 @@
+import java.io.File;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+
 public class Trader extends Stocks {
 
 	// FIELDS
@@ -40,7 +46,6 @@ public class Trader extends Stocks {
 	
 	public static void trade()
 	{
-		checkTrade();
 		if (buy)
 		{
 			System.out.println(ticker);
@@ -56,15 +61,10 @@ public class Trader extends Stocks {
 		Transactions.addTranscation(ticker, quantity, price, false);
 	}
 
-<<<<<<< HEAD
+
 	private static void buy() {
 		Portfolio.addEquity(ticker, quantity, price);
 		Transactions.addTranscation(ticker, quantity, price, true);
-=======
-	private void buy() {
-		// Add to Portfolio
-		// Add to Transactions
->>>>>>> 78bbe824321067b41eada4ebba1060f555dcda83
 	}
 
 	public static String checkTrade() 
@@ -82,17 +82,30 @@ public class Trader extends Stocks {
 		return "";
 	}
 	
-	public String smartScore()
+	public static void playSound() 
 	{
-		String score = null;
-		// Use smart score class
-		return score;
-	}
-	
-	public void playSound() {
-		
-	}
-<<<<<<< HEAD
+		try 
+		{
+			File musicPath = new File("ApplePaySound.wav");
+
+			if (musicPath.exists())
+			{
+				AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
+				Clip clip = AudioSystem.getClip();
+				clip.open(audioInput);
+				clip.start();
+
+				Thread.sleep(clip.getMicrosecondLength()/1000);
+			} 
+			else
+			{
+				System.out.print("ERROR");
+			}
+		} 
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
 	
 //	public static void main(String[] args)
 //	{
@@ -100,6 +113,5 @@ public class Trader extends Stocks {
 //		Portfolio.addEquity("AAPL", 50, 310.00);
 //		System.out.println(Portfolio.listAllEquities());
 //	}
-=======
->>>>>>> 78bbe824321067b41eada4ebba1060f555dcda83
+}
 }

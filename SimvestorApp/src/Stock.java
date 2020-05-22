@@ -14,7 +14,6 @@ public class Stock extends Stocks implements Equity, Transaction {
 	// constructor
 	public Stock(String ticker, int quantity, double buyPrice, boolean active)
 	{
-<<<<<<< HEAD
 		this.ticker = ticker;
 		this.quantity = quantity;
 		this.buyPrice = buyPrice;
@@ -27,9 +26,8 @@ public class Stock extends Stocks implements Equity, Transaction {
 		this.quantity = quantity;
 		this.buyPrice = buyPrice;
 		active = true;
-=======
-		
->>>>>>> 78bbe824321067b41eada4ebba1060f555dcda83
+
+
 	}
 	@Override
 	// gets ticker
@@ -65,7 +63,6 @@ public class Stock extends Stocks implements Equity, Transaction {
 	// gets equity value
 	@Override
 	public double getEquityValue() {
-		// TODO Auto-generated method stub
 		return (double) getCurrentPrice() * quantity;
 	}
 	// gets total profit by subtracting buy price * quantity
