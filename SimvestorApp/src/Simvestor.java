@@ -6,6 +6,7 @@ import java.awt.event.FocusListener;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.event.CaretEvent;
@@ -26,7 +27,7 @@ public class Simvestor extends JFrame{
 
 	private JTextField txtSearch;
 	private JButton btnReset;
-	private JTextField txtBalance;
+	public static JTextField txtBalance;
 	private JTextField txtQuantity;
 	private JTextField txtCash;
 	private JButton btnBuy;
@@ -47,10 +48,10 @@ public class Simvestor extends JFrame{
 	private int quantity;
 	private String ticker;
 	private double price;
-	
+
 	private FileHandler fileHandler = new FileHandler();
 
-			
+
 	public Simvestor() {
 		// Empty
 	}
@@ -112,18 +113,21 @@ public class Simvestor extends JFrame{
 		tradeButton.setVisible(true);
 		tradeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (Trader.checkTrade()) {
 				Trader.trade();
 				Trader.playSound();
 				price = 0;
 				ticker = "";
 				quantity = 0;
-				Timer.wait(1);
 				txtCash.setText(Portfolio.getDisplayCash());
 				txtBalance.setText(Portfolio.getDisplayValue());
 				portfolioList.setText(Portfolio.listAllEquities());
 				transactionList.setText(Transactions.listAllTransactions());
 				fileHandler.writePortfolioData();
 				fileHandler.writeTransactionData();
+			} else {
+					JOptionPane.showMessageDialog(tradeButton, "PROBLEM");
+				}
 			}});
 		Simvestor.getContentPane().add(tradeButton);
 
@@ -151,11 +155,11 @@ public class Simvestor extends JFrame{
 		txtQuantity.addCaretListener(new CaretListener() {
 			public void caretUpdate(CaretEvent e) {
 				try {
-				int quantity = Integer.parseInt(txtQuantity.getText());
-				Trader.setQuantity(quantity);
+					int quantity = Integer.parseInt(txtQuantity.getText());
+					Trader.setQuantity(quantity);
 				}
 				catch (NullPointerException ex) {
-					 // System.out.println("");
+					// System.out.println("");
 				}
 				catch (NumberFormatException ex)
 				{
@@ -176,7 +180,7 @@ public class Simvestor extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				Trader.setType(true);
 			}
-			
+
 		});
 		Simvestor.getContentPane().add(btnBuy);
 
@@ -235,20 +239,20 @@ public class Simvestor extends JFrame{
 		txtTransactions.setBounds(550/x, 300/x, 400/x, 50/x);
 		txtTransactions.setVisible(true);
 		Simvestor.getContentPane().add(txtTransactions);
-		
+
 		portfolioList = new JTextArea(Portfolio.listAllEquities());
 		portfolioList.setFont(new Font("Arial", Font.BOLD, 14/x));
 		portfolioList.setEditable(false);
 		portfolioList.setBounds(50/x,350/x,400/x,500/x);
 		Simvestor.getContentPane().add(portfolioList);
-		
-		
+
+
 		transactionList = new JTextArea(Transactions.listAllTransactions());
 		transactionList.setFont(new Font("Arial", Font.BOLD, 12/x));
 		transactionList.setBounds(550/x,350/x,400/x,500/x);
 		transactionList.setEditable(false);
 		Simvestor.getContentPane().add(transactionList);
-		
+
 		txtPrice = new JTextField();
 		txtPrice.setEditable(false);
 		txtPrice.setHorizontalAlignment(SwingConstants.TRAILING);
@@ -257,7 +261,7 @@ public class Simvestor extends JFrame{
 		txtPrice.setBounds(1250/x, 150/x, 250/x, 150/x);
 		Simvestor.getContentPane().add(txtPrice);
 		txtPrice.setColumns(10);
-		
+
 		txtTicker = new JTextField();
 		txtTicker.setEditable(false);
 		txtTicker.setText("");
@@ -265,7 +269,7 @@ public class Simvestor extends JFrame{
 		txtTicker.setColumns(10);
 		txtTicker.setBounds(1000/x, 150/x, 250/x, 150/x);
 		Simvestor.getContentPane().add(txtTicker);
-		
+
 		txtName = new JTextField();
 		txtName.setFont(new Font("Arial", Font.BOLD, 24/x));
 		txtName.setText("");
@@ -273,7 +277,7 @@ public class Simvestor extends JFrame{
 		txtName.setBounds(1000/x, 300/x, 500/x, 50/x);
 		Simvestor.getContentPane().add(txtName);
 		txtName.setColumns(10);
-		
+
 		txtSearch = new JTextField("Search");
 		txtSearch.setFont(new Font("Arial", Font.BOLD, 24/x));
 		txtSearch.addFocusListener(new FocusListener()
@@ -295,15 +299,15 @@ public class Simvestor extends JFrame{
 		txtSearch.setColumns(10);
 		txtSearch.setVisible(true);
 		txtSearch.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					String search = txtSearch.getText();
-					String ticker = Stocks.searchMatch(search);
-					txtName.setText(Stocks.getCompanyName(search));
-					txtPrice.setText(Stocks.getDisplayPrice(ticker));
-					txtTicker.setText(ticker);
-					Trader.setTicker(ticker);
-					Trader.setPrice(Stocks.getPrice(ticker));
-				}});
+			public void actionPerformed(ActionEvent e) {
+				String search = txtSearch.getText();
+				String ticker = Stocks.searchMatch(search);
+				txtName.setText(Stocks.getCompanyName(search));
+				txtPrice.setText(Stocks.getDisplayPrice(ticker));
+				txtTicker.setText(ticker);
+				Trader.setTicker(ticker);
+				Trader.setPrice(Stocks.getPrice(ticker));
+			}});
 		Simvestor.getContentPane().add(txtSearch);
 
 		Simvestor.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

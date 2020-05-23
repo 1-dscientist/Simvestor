@@ -21,14 +21,10 @@ public class Timer {
 		return myObj.getMinute();
 	}
 
-	public static void wait(int seconds)
+	public static void wait(int seconds) throws InterruptedException
 	{
-		try {
-			TimeUnit.SECONDS.sleep(seconds);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		Simvestor.txtBalance.setText(Portfolio.getDisplayValue());
+		wait(60);
 	}
 
 		//	public static void main(String[] args)
@@ -43,4 +39,5 @@ public class Timer {
 		//		}
 		//		System.out.println(time.getMinute());
 		//	}
-	}
+	
+}

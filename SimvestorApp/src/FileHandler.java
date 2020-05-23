@@ -1,14 +1,16 @@
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 // File Name Portfolio.txt and Transactions.txt
 
 public class FileHandler {
 
-	private final String portfolioData = "Portfolio.txt";
-	private final String transactionData = "Transactions.txt";
+	private final static String portfolioData = "Portfolio.txt";
+	private final static String transactionData = "Transactions.txt";
 
 	private String portfolio;
 	private String transactions;
@@ -27,7 +29,7 @@ public class FileHandler {
 		}
 	}
 
-	public String readPortfolioData()
+	public static String readPortfolioData()
 	{
 		String out = "";
 
@@ -132,6 +134,17 @@ public class FileHandler {
 			
 		}
 	}
+	
+	public static List<String> listOfTickers()
+	{
+		List<String> list = new ArrayList<String>();
+		for (int i = 0; i < (readPortfolioData().split("\n").length); i++)
+		{
+			String name = readPortfolioData().split("\n")[i].split(" ")[3];
+			list.add(name);
+		}
+		return list;
+	}
 
 	public void reset()
 	{
@@ -159,13 +172,9 @@ public class FileHandler {
 		readPortfolioData();
 		readTransactionData();
 	}
-
-	//	public static void main(String[] args)
-	//	{
-	//		FileHandler fileHandler = new FileHandler();
-	//		for (int i = 0; i < (fileHandler.readPortfolioData().split("\n").length); i++)
-	//		{
-	//			System.out.println(fileHandler.readPortfolioData().split("\n")[i].split(" ")[5]);
-	//		}
-	//	}
+//
+//		public static void main(String[] args)
+//		{
+//			System.out.println(listOfTickers().toString());
+//		}
 }

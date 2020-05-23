@@ -161,14 +161,6 @@ public class Stocks {
 					name = lines[i].split(": \"")[1].split("\",")[0];
 				}
 			}
-			/*
-
-			NOTE:
-			If you'd like to pull an image from online, that is possible to do using the ImageIO class. It would look something like:
-			
-			Image downloadedImage = ImageIO.read(new URL("URL OF THE IMAGE TO DOWNLOAD"));
-"
-			 */
 
 		} catch(IOException ex) {
 			ex.printStackTrace();
