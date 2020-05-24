@@ -1,10 +1,11 @@
-// Primary Author:Rushil Jayant
-// p7
-// 5/24/20
-// 35th and final commit
+// Author: Joshua Choi
+// Date:   05/26/2020
+// Rev:    02
+// Notes:  IS-A Stock which implements Equity and Transaction and Extends StockData to get Data for a Stock
+
 import java.text.DecimalFormat;
 
-public class Stock extends Stocks implements Equity, Transaction {
+public class Stock extends StockData implements Equity, Transaction {
 	// FIELDS
 	private String ticker;
 	private int quantity;

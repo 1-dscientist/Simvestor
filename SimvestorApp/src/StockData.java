@@ -1,8 +1,8 @@
+// Author: Rushil Jayant
+// Date:   05/26/2020
+// Rev:    03
+// Notes:  Gets All the Stock Data Necessary for the Paper Trading Game
 
-// Primary Author:Joshua Choi
-// p7
-// 5/24/20
-// 35th and final commit
 import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
@@ -17,20 +17,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Stocks {
-
-	// Fields
-	private static final String API_KEY = "E3OKBSQ3LTVGCVYE";
-	private static final String API_KEY_2 = "0M8I308CQIX4V57T";
-
-	private static String baseLinkPrice = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=|TICKER|&interval=5min&apikey=|APIKEY|";
-	private static String baseLinkSearch = "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=|SEARCH|&apikey=|APIKEY|";
-	private static String baseLinkDailyPrice = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=|TICKER|&apikey=|APIKEY|";
+public class StockData {
 
 	private static final DecimalFormat ROUND = new DecimalFormat("0.00");
 
 	// Constructor
-	public Stocks() {
+	public StockData() {
 		// Empty Because this is used for research abt stocks
 	}
 	// gets price from the ticker imported from the database website and returns for search
@@ -114,14 +106,6 @@ public class Stocks {
 				}
 			}
 			
-			/*
-
-			NOTE:
-			If you'd like to pull an image from online, that is possible to do using the ImageIO class. It would look something like:
-			
-			Image downloadedImage = ImageIO.read(new URL("URL OF THE IMAGE TO DOWNLOAD"));
-"
-			 */
 
 		} catch(IOException ex) {
 			ex.printStackTrace();

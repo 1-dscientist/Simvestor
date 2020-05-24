@@ -1,8 +1,8 @@
-// Primary Author: Rushil Jayant 
-// pop up: Joshua Choi
-// p7
-// 5/24/20
-// 35th and final commit
+// Author: Rushil Jayant
+// Date:   05/26/2020
+// Rev:    02
+// Notes:  Class responsible for all trading and validation in the Paper Trading game
+
 import java.util.List;
 import java.io.File;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
-public class Trader extends Stocks {
+public class Trader extends StockData {
 
 	// FIELDS
 	private static String ticker;
@@ -24,6 +24,7 @@ public class Trader extends Stocks {
 
 	// CONSTRUCTOR
 
+	@SuppressWarnings("static-access")
 	public Trader(String ticker, double price)
 	{
 		this.ticker = ticker;
@@ -68,16 +69,12 @@ public class Trader extends Stocks {
 		Transactions.addTransaction(ticker, quantity, price, false);
 	}
 
-	// if buying, adds the specific stock to equity and adds the log to trasaction
+	// if buying, adds the specific stock to equity and adds the log to transactions
 	private static void buy() {
 		Portfolio.addEquity(ticker, quantity, price);
 		Transactions.addTransaction(ticker, quantity, price, true);
 	}
-	// checks problem and returns problem if called
-	public static String checkProblem() 
-	{
-		return "PROBLEM";
-	}
+	
 	// checks if the user is eligible(cash enough , tickers exist) and if eligible the authentication returns true
 	public static boolean checkTrade()
 	{
@@ -130,7 +127,7 @@ public class Trader extends Stocks {
 	{
 		try 
 		{
-			File musicPath = new File("ApplePaySound.wav");
+			File musicPath = new File("TransactionSound.wav");
 
 			if (musicPath.exists())
 			{

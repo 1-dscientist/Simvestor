@@ -1,7 +1,8 @@
-// Primary Author:Rushil Jayant
-// p7
-// 5/24/20
-// 35th and final commit
+// Author: Rushil Jayant
+// Date:   05/26/2020
+// Rev:    02
+// Notes:  Contains all the Transactions for the Paper Trading game
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -18,7 +19,6 @@ public class Portfolio {
 	// adds equity in respect to the ticker, quantity, buy price input
 	public static void addEquity(String ticker, int quantity, double buyPrice)
 	{
-
 		boolean same = false;
 		int index = -1;
 		try {
@@ -73,15 +73,16 @@ public class Portfolio {
 			}
 		}
 	}
-	// returns # of equities by calling the size method
-	public int numberOfEquities()
-	{
-		return equities.size();
-	}
+
 	// returns cash
 	public static double getCash()
 	{
 		return cash;
+	}
+	
+	public static void setCash(double buyingPower)
+	{
+		cash = buyingPower;
 	}
 	// returns portfolio by adding the new value into the string
 	public static double getPortfolioValue() 
@@ -135,5 +136,3 @@ public class Portfolio {
 	//		System.out.println(getDisplayCash());
 	//	}
 }
-
-// Add method to remove equity
