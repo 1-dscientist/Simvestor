@@ -1,3 +1,7 @@
+// Primary Author:Rushil Jayant
+// p7
+// 5/24/20
+// 35th and final commit
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,7 +28,7 @@ import java.awt.List;
 
 @SuppressWarnings("serial")
 public class Simvestor extends JFrame{
-
+	// FIELDS
 	private JTextField txtSearch;
 	private JButton btnReset;
 	public static JTextField txtBalance;
@@ -57,6 +61,7 @@ public class Simvestor extends JFrame{
 	}
 
 	@SuppressWarnings("unchecked")
+	// sets up program, creates frame window
 	private void setup()
 	{
 		fileHandler.parseData();
@@ -315,7 +320,7 @@ public class Simvestor extends JFrame{
 		Simvestor.setResizable(false);
 		Simvestor.getContentPane().setLayout(null);
 	}
-
+	// main method run this class by java application
 	public static void main(String[] args)
 	{
 		Simvestor simvestor = new Simvestor();

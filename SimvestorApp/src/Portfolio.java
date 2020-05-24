@@ -1,18 +1,21 @@
+// Primary Author:Rushil Jayant
+// p7
+// 5/24/20
+// 35th and final commit
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class Portfolio {
-
+// Fields
 	private static List<Equity> equities = new ArrayList<Equity>();
-
 	private static double cash = 100000.00;
-
+	// empty constructor
 	public Portfolio() 
 	{
 
 	}
-
+	// adds equity in respect to the ticker, quantity, buy price input
 	public static void addEquity(String ticker, int quantity, double buyPrice)
 	{
 
@@ -44,7 +47,7 @@ public class Portfolio {
 			cash -= (quantity*buyPrice);
 		}
 	}
-
+	// removes equity according to ticker , quantity , and sellprice
 	public static void removeEquity(String ticker, int quantity, double sellPrice)
 	{
 		boolean same = false;
@@ -70,17 +73,17 @@ public class Portfolio {
 			}
 		}
 	}
-
+	// returns # of equities by calling the size method
 	public int numberOfEquities()
 	{
 		return equities.size();
 	}
-
+	// returns cash
 	public static double getCash()
 	{
 		return cash;
 	}
-
+	// returns portfolio by adding the new value into the string
 	public static double getPortfolioValue() 
 	{
 		double newValue = 0.0;
@@ -95,17 +98,17 @@ public class Portfolio {
 			return cash;
 		}
 	}
-
+	// returns display value
 	public static String getDisplayValue()
 	{
 		return "$"+Double.valueOf(getPortfolioValue())+"0";
 	}
-
+	// returns string display cash
 	public static String getDisplayCash()
 	{
 		return "$"+Double.valueOf(getCash())+"0";
 	}
-
+	// list all equities by using a for loop that adds strings of equity until i gets bigger than the size
 	public static String listAllEquities()
 	{
 		String stringList = "";
@@ -115,7 +118,7 @@ public class Portfolio {
 		}
 		return stringList;
 	}
-
+	// removes every equity, start over again at 100000.00 cash
 	public static void reset()
 	{
 		equities.removeAll(equities);

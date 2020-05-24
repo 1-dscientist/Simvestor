@@ -1,3 +1,7 @@
+// Primary Author:Rushil Jayant
+// p7
+// 5/24/20
+// 35th and final commit
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -8,13 +12,13 @@ import java.util.Scanner;
 // File Name Portfolio.txt and Transactions.txt
 
 public class FileHandler {
-
+// FIELDS
 	private final static String portfolioData = "Portfolio.txt";
 	private final static String transactionData = "Transactions.txt";
 
 	private String portfolio;
 	private String transactions;
-
+// writes portfolio data using equities by FileWriter
 	public void writePortfolioData()
 	{
 		portfolio = Portfolio.listAllEquities();
@@ -28,7 +32,7 @@ public class FileHandler {
 			e.printStackTrace();
 		}
 	}
-
+// reads portfolio data through a scanner
 	public static String readPortfolioData()
 	{
 		String out = "";
@@ -52,7 +56,7 @@ public class FileHandler {
 
 		return out;
 	}
-
+// writes transaction data like the portfolio data
 	public void writeTransactionData()
 	{
 		transactions = Transactions.listAllTransactions();
@@ -66,7 +70,7 @@ public class FileHandler {
 			e.printStackTrace();
 		}
 	}
-
+// reads transaction data through scanner, just like the portfolio
 	public String readTransactionData()
 	{
 		String out = "";
@@ -90,7 +94,7 @@ public class FileHandler {
 
 		return out;
 	}
-
+//  takes the data stored in the Portfolio.txt and Transactions.txt and parses it into usable formats
 	public void parseData()
 	{
 		try {
@@ -111,7 +115,7 @@ public class FileHandler {
 			quantity = Integer.parseInt(readTransactionData().split("\n")[i].split(" ")[1]);
 			ticker = readTransactionData().split("\n")[i].split(" ")[4];
 			price = Double.parseDouble(readTransactionData().split("\n")[i].split(" ")[6].substring(1));
-			Transactions.addTranscation(ticker, quantity, price, active);
+			Transactions.addTransaction(ticker, quantity, price, active);
 
 		}
 
@@ -134,7 +138,7 @@ public class FileHandler {
 			
 		}
 	}
-	
+	// using arrays , returns list tickers
 	public static List<String> listOfTickers()
 	{
 		List<String> list = new ArrayList<String>();
@@ -145,7 +149,7 @@ public class FileHandler {
 		}
 		return list;
 	}
-
+	// resets every data user changed, equivalent to erasing all data in the txt file
 	public void reset()
 	{
 		try {

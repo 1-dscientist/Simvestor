@@ -1,3 +1,8 @@
+// Primary Author: Rushil Jayant 
+// pop up: Joshua Choi
+// p7
+// 5/24/20
+// 35th and final commit
 import java.util.List;
 import java.io.File;
 import java.util.ArrayList;
@@ -26,27 +31,27 @@ public class Trader extends Stocks {
 	}
 
 	// METHODS
-
+	// sets buy to b;
 	public static void setType(boolean b)
 	{
 		buy = b;
 	}
-
+	// sets quantity to n
 	public static void setQuantity(int n)
 	{
 		quantity = n;
 	}
-
+	// sets ticker to name
 	public static void setTicker(String name)
 	{
 		ticker = name;
 	}
-
+	// sets price to dollars
 	public static void setPrice(double dollars)
 	{
 		price = dollars;
 	}
-
+	// depending on the input, calls sell() or buy() accordingly
 	public static void trade()
 	{
 		if (buy)
@@ -57,23 +62,23 @@ public class Trader extends Stocks {
 			sell();
 		}
 	}
-
+	// if selling, removes the specific stock to equity and adds the log to transaction
 	private static void sell() {
 		Portfolio.removeEquity(ticker, quantity, price);
-		Transactions.addTranscation(ticker, quantity, price, false);
+		Transactions.addTransaction(ticker, quantity, price, false);
 	}
 
-
+	// if buying, adds the specific stock to equity and adds the log to trasaction
 	private static void buy() {
 		Portfolio.addEquity(ticker, quantity, price);
-		Transactions.addTranscation(ticker, quantity, price, true);
+		Transactions.addTransaction(ticker, quantity, price, true);
 	}
-
+	// checks problem and returns problem if called
 	public static String checkProblem() 
 	{
 		return "PROBLEM";
 	}
-
+	// checks if the user is eligible(cash enough , tickers exist) and if eligible the authentication returns true
 	public static boolean checkTrade()
 	{
 		boolean auth = true;
@@ -120,7 +125,7 @@ public class Trader extends Stocks {
 		return auth;
 	}
 
-
+	// plays the apple pay sound if transaction is completed
 	public static void playSound() 
 	{
 		try 

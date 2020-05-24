@@ -1,3 +1,8 @@
+
+// Primary Author:Joshua Choi
+// p7
+// 5/24/20
+// 35th and final commit
 import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
@@ -28,7 +33,7 @@ public class Stocks {
 	public Stocks() {
 		// Empty Because this is used for research abt stocks
 	}
-
+	// gets price from the ticker imported from the database website and returns for search
 	public static double getPrice(String ticker)
 	{
 		double price = 0;
@@ -74,13 +79,13 @@ public class Stocks {
 		}
 		return price;
 	}
-
+	// gets display price from the ticker input and returns 
 	public static String getDisplayPrice(String ticker)
 	{
 		String formattedPrice = String.valueOf(ROUND.format(getPrice(ticker)));
 		return "$" + formattedPrice;
 	}
-	
+	// gets equities prices from the imported website database then it returns
 	public static double getPriceEquity(String ticker)
 	{
 		double price = 0;
@@ -126,14 +131,14 @@ public class Stocks {
 		}
 		return price;
 	}
-
+	// returns display price equity
 	public static String getDisplayPriceEquity(String ticker)
 	{
 		String formattedPrice = String.valueOf(ROUND.format(getPriceEquity(ticker)));
 		return "$" + formattedPrice;
 	}
 
-	// TODO
+	// from the search to the imported database website, recieves company name then returns it
 	public static String getCompanyName(String search) 
 	{
 		String name = null;
@@ -170,7 +175,7 @@ public class Stocks {
 		}
 		return name;
 	}
-
+	// finds the 'search' in the database then matches it into a specific stock
 	public static String searchMatch(String search) 
 	{
 		String ticker = null;
@@ -215,8 +220,7 @@ public class Stocks {
 		}
 		return ticker;
 	}
-
-	public static void main(String[] args)
+	// main method for test
 	{
 		//		System.out.println(getCompanyName("AAPL"));
 		//		System.out.println(searchMatch("apple"));
